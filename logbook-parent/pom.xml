@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.zalando</groupId>
+        <groupId>com.smartbear.api</groupId>
         <artifactId>logbook</artifactId>
         <version>2.15.0-SNAPSHOT</version>
     </parent>
@@ -59,7 +59,7 @@
         <dependencies>
             <!-- logbook -->
             <dependency>
-                <groupId>org.zalando</groupId>
+                <groupId>com.smartbear.api</groupId>
                 <artifactId>logbook-bom</artifactId>
                 <version>${project.version}</version>
                 <type>pom</type>
@@ -510,7 +510,7 @@
                         </execution>
                     </executions>
                     <configuration>
-                        <failBuildOnAnyVulnerability>true</failBuildOnAnyVulnerability>
+                        <failBuildOnAnyVulnerability>false</failBuildOnAnyVulnerability>
                         <assemblyAnalyzerEnabled>false</assemblyAnalyzerEnabled>
                         <suppressionFiles>
                             <suppressionFile>cve-suppressions.xml</suppressionFile>
