@@ -1,0 +1,10 @@
+{
+  "settingsInheritedFrom": "SmartBear/whitesource-config@main",
+  "remediateSettings": {
+    "enableRenovate": true,
+    "extends": ["config:base"]
+  },
+  "checkRunSettings": {
+    "licenseCheckRunConclusionLevel": "success"
+  }
+}

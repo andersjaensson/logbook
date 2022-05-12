@@ -33,7 +33,15 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
+    - name: Set up maven settings
+      uses: whelk-io/maven-settings-xml-action@v20
+      with:
+        repositories: '[{ "id": "smartbear-repo", "url": ${{ NEXUS_URL }}, "snapshots": {"enabled": true} }]'
+        servers: '[{ "id": "smartbear-repo", "username": ${{ NEXUS_USERNAME }}, "password": ${{ NEXUS_PASSWORD }} }]'
     - name: Compile
       run: ./mvnw clean test-compile -B
     - name: Test
       run: ./mvnw verify -P "${{ matrix.profile }}" -B
+    - name: Deploy
+      if: github.event_name != 'pull_request'
+      run: ./mvnw clean deploy -D pushChanges=false -D skipTests -D dependency-check.skip
