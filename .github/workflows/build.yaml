@@ -36,8 +36,8 @@ jobs:
     - name: Set up maven settings
       uses: whelk-io/maven-settings-xml-action@v20
       with:
-        repositories: '[{ "id": "smartbear-repo", "url": ${{ secrets.NEXUS_URL }}, "snapshots": {"enabled": true} }]'
-        servers: '[{ "id": "smartbear-repo", "username": ${{ secrets.NEXUS_USERNAME }}, "password": ${{ secrets.NEXUS_PASSWORD }} }]'
+        repositories: '[{ "id": "smartbear-repo", "url": "${{ secrets.NEXUS_URL }}", "snapshots": {"enabled": true} }]'
+        servers: '[{ "id": "smartbear-repo", "username": "${{ secrets.NEXUS_USERNAME }}", "password": "${{ secrets.NEXUS_PASSWORD }}" }]'
     - name: Compile
       run: ./mvnw clean test-compile -B
     - name: Test
