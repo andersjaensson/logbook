@@ -1,9 +1,6 @@
-name: build
+name: Build and Deploy
 
 on:
-  pull_request:
-    branches:
-    - main
   push:
     branches:
     - main
@@ -17,10 +14,7 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        profile: ['', 'spring4']
+    runs-on: self-hosted
     steps:
     - name: Checkout
       uses: actions/checkout@v1
@@ -40,8 +34,5 @@ jobs:
         servers: '[{ "id": "smartbear-repo", "username": "${{ secrets.NEXUS_USERNAME }}", "password": "${{ secrets.NEXUS_PASSWORD }}" }]'
     - name: Compile
       run: ./mvnw clean test-compile -B
-    - name: Test
-      run: ./mvnw verify -P "${{ matrix.profile }}" -B
-    - name: Deploy
-      if: github.event_name != 'pull_request'
-      run: ./mvnw clean deploy -D pushChanges=false -D skipTests -D dependency-check.skip
+    - name: Test and Deploy
+      run: ./mvnw clean deploy -D pushChanges=false -D dependency-check.skip
