@@ -35,4 +35,4 @@ jobs:
     - name: Compile
       run: ./mvnw clean test-compile -B
     - name: Test and Deploy
-      run: ./mvnw clean deploy -D pushChanges=false -D dependency-check.skip
+      run: ./mvnw clean deploy -D pushChanges=false -D dependency-check.skip -DaltDeploymentRepository=smartbear-repo::default::${{ secrets.NEXUS_URL }}
