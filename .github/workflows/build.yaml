@@ -1,9 +1,12 @@
-name: Build and Deploy
+name: Build
 
 on:
   push:
     branches:
-    - main
+      - main
+  pull_request:
+    branches:
+      - main
 
 env:
   # https://github.com/actions/virtual-environments/issues/1499#issuecomment-689467080
@@ -14,25 +17,23 @@ env:
 
 jobs:
   build:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        profile: ['', 'spring4']
     steps:
-    - name: Checkout
-      uses: actions/checkout@v1
-    - name: Cache
-      uses: actions/cache@v1
-      with:
-        path: ~/.m2
-        key: m2
-    - name: Set up JDK
-      uses: actions/setup-java@v1
-      with:
-        java-version: 1.8
-    - name: Set up maven settings
-      uses: whelk-io/maven-settings-xml-action@v20
-      with:
-        repositories: '[{ "id": "smartbear-repo", "url": "${{ secrets.NEXUS_URL }}", "snapshots": {"enabled": true} }]'
-        servers: '[{ "id": "smartbear-repo", "username": "${{ secrets.NEXUS_USERNAME }}", "password": "${{ secrets.NEXUS_PASSWORD }}" }]'
-    - name: Compile
-      run: ./mvnw clean test-compile -B
-    - name: Test and Deploy
-      run: ./mvnw clean deploy -D pushChanges=false -D dependency-check.skip -DaltDeploymentRepository=smartbear-repo::default::${{ secrets.NEXUS_URL }}
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Cache
+        uses: actions/cache@v1
+        with:
+          path: ~/.m2
+          key: m2
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+      - name: Compile
+        run: ./mvnw clean test-compile -B
+      - name: Test
+        run: ./mvnw verify -P "${{ matrix.profile }}" -B
