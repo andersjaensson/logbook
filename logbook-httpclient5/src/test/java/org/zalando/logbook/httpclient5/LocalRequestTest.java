@@ -54,10 +54,10 @@ final class LocalRequestTest {
     }
 
     @Test
-    void shouldParseQueryStringIntoQueryParameters() {
-        final LocalRequest unit = unit(get("http://localhost/?limit=1"));
+    void shouldParseQueryStringIntoRawQueryParameters() {
+        final LocalRequest unit = unit(get("http://localhost/?limit=1&query=Some%20String"));
 
-        assertThat(unit.getQuery()).isEqualTo("limit=1");
+        assertThat(unit.getQuery()).isEqualTo("limit=1&query=Some%20String");
     }
 
     @Test

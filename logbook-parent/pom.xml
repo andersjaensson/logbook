@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.zalando</groupId>
+        <groupId>com.smartbear.api</groupId>
         <artifactId>logbook</artifactId>
         <version>2.15.0-SNAPSHOT</version>
     </parent>
@@ -14,16 +14,6 @@
     <version>2.15.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <distributionManagement>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-        <repository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
-    </distributionManagement>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -59,7 +49,7 @@
         <dependencies>
             <!-- logbook -->
             <dependency>
-                <groupId>org.zalando</groupId>
+                <groupId>com.smartbear.api</groupId>
                 <artifactId>logbook-bom</artifactId>
                 <version>${project.version}</version>
                 <type>pom</type>
@@ -510,7 +500,7 @@
                         </execution>
                     </executions>
                     <configuration>
-                        <failBuildOnAnyVulnerability>true</failBuildOnAnyVulnerability>
+                        <failBuildOnAnyVulnerability>false</failBuildOnAnyVulnerability>
                         <assemblyAnalyzerEnabled>false</assemblyAnalyzerEnabled>
                         <suppressionFiles>
                             <suppressionFile>cve-suppressions.xml</suppressionFile>
