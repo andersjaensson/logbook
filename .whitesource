@@ -2,9 +2,18 @@
   "settingsInheritedFrom": "SmartBear/whitesource-config@main",
   "remediateSettings": {
     "enableRenovate": true,
-    "extends": ["config:base"]
+    "extends": ["config:base"],
+    "packageRules": [
+      {
+        "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+        "automerge": true
+      }
+    ]
   },
   "checkRunSettings": {
     "licenseCheckRunConclusionLevel": "success"
+  },
+  "scanSettings": {
+    "enableIaC": false
   }
 }
