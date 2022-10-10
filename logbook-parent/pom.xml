@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.zalando</groupId>
+        <groupId>com.smartbear.api</groupId>
         <artifactId>logbook</artifactId>
         <version>2.15.0-SNAPSHOT</version>
     </parent>
@@ -14,16 +14,6 @@
     <version>2.15.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <distributionManagement>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-        <repository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
-    </distributionManagement>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -31,12 +21,12 @@
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
 
-        <jackson.version>2.13.1</jackson.version>
+        <jackson.version>2.13.4</jackson.version>
         <json-path.version>2.7.0</json-path.version>
         <kotlin.version>1.6.10</kotlin.version>
-        <ktor.version>1.6.7</ktor.version>
+        <ktor.version>1.6.8</ktor.version>
         <netty.version>4.1.82.Final</netty.version>
-        <reactor-netty.version>1.0.14</reactor-netty.version>
+        <reactor-netty.version>1.0.22</reactor-netty.version>
         <slf4j.version>1.7.36</slf4j.version>
 
         <spring4.version>4.3.30.RELEASE</spring4.version>
@@ -59,7 +49,7 @@
         <dependencies>
             <!-- logbook -->
             <dependency>
-                <groupId>org.zalando</groupId>
+                <groupId>com.smartbear.api</groupId>
                 <artifactId>logbook-bom</artifactId>
                 <version>${project.version}</version>
                 <type>pom</type>
@@ -102,7 +92,7 @@
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
-                <version>1.18.22</version>
+                <version>1.18.24</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
@@ -444,7 +434,7 @@
                 <plugin>
                     <groupId>org.jacoco</groupId>
                     <artifactId>jacoco-maven-plugin</artifactId>
-                    <version>0.8.7</version>
+                    <version>0.8.8</version>
                     <executions>
                         <execution>
                             <id>prepare-agent</id>
@@ -496,6 +486,25 @@
                     <version>2.9.0</version>
                     <configuration>
                         <generateBackupPoms>false</generateBackupPoms>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.owasp</groupId>
+                    <artifactId>dependency-check-maven</artifactId>
+                    <version>6.5.3</version>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>check</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <failBuildOnAnyVulnerability>false</failBuildOnAnyVulnerability>
+                        <assemblyAnalyzerEnabled>false</assemblyAnalyzerEnabled>
+                        <suppressionFiles>
+                            <suppressionFile>cve-suppressions.xml</suppressionFile>
+                        </suppressionFiles>
                     </configuration>
                 </plugin>
                 <plugin>

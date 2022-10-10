@@ -180,7 +180,7 @@ final class LocalRequest implements org.zalando.logbook.HttpRequest {
 
     @Override
     public String getQuery() {
-        return Optional.ofNullable(originalRequestUri.getQuery()).orElse("");
+        return Optional.ofNullable(originalRequestUri.getRawQuery()).orElse("");
     }
 
     @Override
